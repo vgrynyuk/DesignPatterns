@@ -13,20 +13,17 @@
  */
 class ShoppingCart {
     private $productsInTheCart = array();
+    private $productFactory;
     
-    function add($productId) {
-        $this->productsInTheCart = $this->makeProductFromId($productId);
-        }
+    public function __construct() {
+        $this->productFactory = new ProductFactory();
         
-    private function isKeyboard($productId) {
-        return substr($productId,0,1) == 'k';                        
-        }
-        
-    private function makeProductFromId($productId) {
-        if ($this->isKeyboard($productId))
-            return new Keyboard ();
-        return new Mouse ();        
     }
+            
+    function add($productId) {
+        $this->productsInTheCart[] = $this->productFactory->make($productId);
+}
+        
     
 }   
 
